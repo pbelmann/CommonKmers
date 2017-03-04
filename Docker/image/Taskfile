@@ -1,0 +1,1 @@
+default: julia -p $(nproc) /usr/local/sbin/Classify.jl -j /jellyfish/jellyfish-2.2.3/bin/./jellyfish -i ${UNZIPPED_INPUT} -Q ${QUALITY:=C} -d ${DATABASE} -k default -o ${OUTPUT_FILE} --normalize

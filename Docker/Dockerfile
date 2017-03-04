@@ -1,6 +1,6 @@
 #This docker file will create a docker container for the CommonKmers method
 
-FROM cami/profiling
+FROM bioboxes/biobox-minimal-base
 
 MAINTAINER David Koslicki version: 0.1
 
@@ -40,23 +40,24 @@ RUN apt-get install -y git && \
 #Install Bcalm
 RUN wget https://github.com/Malfoy/bcalm/archive/1.tar.gz && \
  tar -zxf 1.tar.gz && \
- cd bcalm-1 && \
+ cd BCALM-1 && \
  make && \
  cp bcalm /usr/local/bin
- 
  
 #Install gzip
 RUN apt-get install -y gzip
 
-#Install fastx toolkit. No longer necessary since I'm making the quality cutoff an optional parameter
-#RUN mkdir Fastx && \
-# cd Fastx && \
-# wget http://hannonlab.cshl.edu/fastx_toolkit/fastx_toolkit_0.0.13_binaries_Linux_2.6_amd64.tar.bz2 && \
-# tar -jxf fastx_toolkit_0.0.13_binaries_Linux_2.6_amd64.tar.bz2
+ADD image /usr/local 
+
+ENV SCHEMA /usr/local/schema.yaml
+
+ENV BIOBOX_EXEC execute_biobox.sh
+
+ENV TASKFILE /usr/local/Taskfile
 
 #Create tasks
-RUN cp /CommonKmers/Docker/default /dckr/etc/tasks.d/default && \
- cp /CommonKmers/Docker/sensitive /dckr/etc/tasks.d/sensitive && \
- cp /CommonKmers/Docker/specific /dckr/etc/tasks.d/specific && \
- cp /CommonKmers/Docker/train /dckr/etc/tasks.d/train && \
- echo -e "\n \n NOTE: Be sure to download the training data at http://www.math.oregonstate.edu/~koslickd/CommonKmersData.tar.gz and uncompress it. The resulting directory should be passed to docker at the location CONT_DATABASES_DIR via: -v /path/to/uncompressed/Data:/dckr/mnt/camiref/CommonKmersData:ro"
+#RUN cp /CommonKmers/Docker/default /dckr/etc/tasks.d/default && \
+# cp /CommonKmers/Docker/sensitive /dckr/etc/tasks.d/sensitive && \
+# cp /CommonKmers/Docker/specific /dckr/etc/tasks.d/specific && \
+# cp /CommonKmers/Docker/train /dckr/etc/tasks.d/train && \
+# echo -e "\n \n NOTE: Be sure to download the training data at http://www.math.oregonstate.edu/~koslickd/CommonKmersData.tar.gz and uncompress it. The resulting directory should be passed to docker at the location CONT_DATABASES_DIR via: -v /path/to/uncompressed/Data:/dckr/mnt/camiref/CommonKmersData:ro"
