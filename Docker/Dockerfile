@@ -6,7 +6,7 @@ MAINTAINER David Koslicki version: 0.1
 
 #Install Jellyfish
 RUN apt-get -y update && \ 
- apt-get install -y wget && \ 
+ apt-get install -y wget curl && \ 
  mkdir jellyfish && \ 
  cd jellyfish && \ 
  wget https://github.com/gmarcais/Jellyfish/releases/download/v2.2.3/jellyfish-2.2.3.tar.gz && tar -xzf jellyfish-2.2.3.tar.gz && \

@@ -20,14 +20,19 @@ else
 fi
 
 INPUT_DIR="${INPUT_TEMP}/CommonKmers"
-mkdir ${INPUT_DIR} 
 
-DATABASE="${INPUT_TEMP}/CommonKmersData"
+if [ ! -d "${INPUT_DIR}" ]; then
+	mkdir ${INPUT_DIR} 
+fi
+
+
+
+DATABASE="${INPUT_DIR}/CommonKmersData"
 
 if [ ! -d "${DATABASE}" ]; then
 	GZIPPED_DATABASE="${DATABASE}.tar.gz"
 	curl http://www.math.oregonstate.edu/~koslickd/CommonKmersData.tar.gz > $GZIPPED_DATABASE 
-	tar xzvf "${GZIPPED_DATABASE}" 
+	tar xzvf "${GZIPPED_DATABASE}" -C "${INPUT_DIR}" 
 fi
 
 PROFILING_OUT=""
