@@ -39,7 +39,7 @@ PROFILING_OUT=""
 for READ_FILE in $(echo $READS)
 do
 	UNZIPPED_INPUT="${DATABASE}/$(basename $READ_FILE)"
-	gunzip -c -d $READ_FILE > "${UNZIPED_INPUT}"
+	gunzip -c -d $READ_FILE > "${UNZIPPED_INPUT}"
 	OUTPUT_FILE="${OUTPUT}/$(basename $READ_FILE)"
 	PROFILING_OUT="$PROFLING_OUT
 	      - path: ${OUTPUT_FILE}
